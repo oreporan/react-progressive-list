@@ -80,7 +80,7 @@ class ReactProgressiveList extends React.PureComponent<Props, State> {
       top = e.target.scrollTop;
       height = e.target.offsetHeight;
       scrollHeight = e.target.scrollHeight;
-      reachedLimit = top + height >= scrollHeight + scrollBuffer;
+      reachedLimit = top + height + scrollBuffer >= scrollHeight;
     }
     if (reachedLimit && numRenderRows !== rowCount && !this.isLoading) {
       this.loadMore(progressiveAmount);

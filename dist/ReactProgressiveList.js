@@ -195,7 +195,7 @@ var _initialiseProps = function _initialiseProps() {
       top = e.target.scrollTop;
       height = e.target.offsetHeight;
       scrollHeight = e.target.scrollHeight;
-      reachedLimit = top + height >= scrollHeight + scrollBuffer;
+      reachedLimit = top + height + scrollBuffer >= scrollHeight;
     }
     if (reachedLimit && numRenderRows !== rowCount && !_this5.isLoading) {
       _this5.loadMore(progressiveAmount);
