@@ -1,6 +1,5 @@
-// @flow
 import * as React from 'react';
-import times from 'lodash/times';
+import times from 'lodash.times';
 
 // [MC] Progressive load list items. By default it loads X rows first, then
 // when you scroll to the end of that list it requests to load more (displaying a loader at the end
@@ -15,11 +14,22 @@ import times from 'lodash/times';
 //
 // NOTE - requestIdleCallback is currently not supported by safari.
 
+interface Window {
+  requestIdleCallback?: (fn: () => void) => number;
+  cancelIdleCallback: (id: number) => void;
+  addEventListener: (type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions) => void;
+  removeEventListener: (type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions) => void;
+  innerHeight: number
+}
+
+declare var window: Window;
+
+
 type Props = {
   className?: string,
   idleAmount?: number,
   scrollBuffer?: number,
-  initialAmount?: number,
+  initialAmount: number,
   isActive?: boolean,
   progressiveAmount?: number,
   renderItem: (index: number) => any,
@@ -28,30 +38,31 @@ type Props = {
   useWindowScroll?: boolean
 };
 
+
 type State = {
-  numRenderRows: number
+  numRenderRows: number,
 };
 
 class ReactProgressiveList extends React.PureComponent<Props, State> {
-  props: Props;
   state: State;
+  requestId: number;
+  ref?: HTMLDivElement | null;
+  isLoading = false;
 
   static defaultProps = {
-    className: undefined,
-    idleAmount: 0, // load one extra row on idle by default
+    className: undefined,	 
+    idleAmount: 0, // load one extra row on idle by default	     
     initialAmount: 10,
-    isActive: true,
-    progressiveAmount: 10,
-    renderLoader: () => null,
+    isActive: true,	
+    progressiveAmount: 10,	
+    renderLoader: () => null,	
     useWindowScroll: false
   };
-  requestId: number; // eslint-disable-line react/sort-comp
-  ref: React.Node;
-  isLoading = false;
 
   constructor(props: Props, ...args: Array<any>) {
     super(props, ...args);
     const { rowCount, initialAmount, isActive } = props;
+    this.requestId = 0;
     this.state = {
       numRenderRows: isActive ? initialAmount : rowCount
     };
@@ -60,22 +71,22 @@ class ReactProgressiveList extends React.PureComponent<Props, State> {
   componentDidMount() {
     const { useWindowScroll } = this.props;
     this.progressivelyLoadMore(false);
-    const scrollParent = useWindowScroll ? window : this.ref.parentElement;
-    scrollParent.addEventListener('scroll', this.handleScroll, {
+    const scrollParent = useWindowScroll ? window : this.ref && this.ref.parentElement;
+    scrollParent && scrollParent.addEventListener('scroll', this.handleScroll, {
       passive: true
     });
   }
 
-  handleScroll = e => {
+  handleScroll = (e: any) => {
     const { rowCount, progressiveAmount, useWindowScroll, scrollBuffer = 0 } = this.props;
     const { numRenderRows } = this.state;
     let top, height, scrollHeight, reachedLimit;
     if (useWindowScroll) {
-      const boundingClientRect = this.ref.getBoundingClientRect();
-      top = boundingClientRect.top;
-      height = boundingClientRect.height;
+      const boundingClientRect = this.ref && this.ref.getBoundingClientRect();
+      top = boundingClientRect && boundingClientRect.top || 0;
+      height = boundingClientRect && boundingClientRect.height || 0;
       scrollHeight = window.innerHeight;
-      reachedLimit = top + height < scrollHeight;
+      reachedLimit = top + height <= scrollHeight + scrollBuffer;
     } else {
       top = e.target.scrollTop;
       height = e.target.offsetHeight;
@@ -96,8 +107,8 @@ class ReactProgressiveList extends React.PureComponent<Props, State> {
   componentWillUnmount() {
     const { useWindowScroll } = this.props;
     if (window.requestIdleCallback) window.cancelIdleCallback(this.requestId);
-    const scrollParent = useWindowScroll ? window : this.ref.parentElement;
-    scrollParent.removeEventListener('scroll', this.handleScroll);
+    const scrollParent = useWindowScroll ? window : this.ref && this.ref.parentElement;
+    scrollParent && scrollParent.removeEventListener('scroll', this.handleScroll);
   }
 
   initializeList(props: Props) {
@@ -123,7 +134,7 @@ class ReactProgressiveList extends React.PureComponent<Props, State> {
     }
   };
 
-  loadMore(amount: number) {
+  loadMore(amount: number = 10) {
     const { rowCount } = this.props;
     if (this.state.numRenderRows >= rowCount) return;
     this.isLoading = true;
@@ -147,8 +158,8 @@ class ReactProgressiveList extends React.PureComponent<Props, State> {
         }}
         className={className}
       >
-        {times(numRenderRows, i => renderItem(i))}
-        {numRenderRows < rowCount && renderLoader()}
+        {times(numRenderRows, (i: number) => renderItem(i))}
+        {numRenderRows < rowCount && renderLoader && renderLoader()}
       </div>
     );
   }

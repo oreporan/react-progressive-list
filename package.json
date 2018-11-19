@@ -1,39 +1,36 @@
 {
-  "name": "react-progressive-list",
+  "name": "react-progressive-list-typescript",
   "version": "0.1.2",
-  "description": "react-progressive-list",
+  "description": "forked from react-progressive-list, added TS and more features like buffer",
   "main": "dist/ReactProgressiveList.js",
   "scripts": {
-    "compile": "babel src -d dist",
-    "prepublish": "npm run compile",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "prepublish": "yarn build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mattcolman/react-progressive-list.git"
+    "url": "git+https://github.com/oreporan/react-progressive-list.git"
   },
   "keywords": [
     "react",
     "list"
   ],
-  "author": "Matt Colman <matt@mattcolman.com>",
+  "author": "Ore Poran <matt@mattcolman.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mattcolman/react-progressive-list/issues"
+    "url": "https://github.com/oreporan/react-progressive-list/issues"
   },
-  "homepage": "https://github.com/mattcolman/react-progressive-list#readme",
+  "homepage": "https://github.com/oreporan/react-progressive-list#readme",
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "lodash.times": "^4.3.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-plugin-flow-react-proptypes": "^13.0.2",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-flow": "^6.23.0",
-    "babel-preset-react": "^6.24.1"
+    "@types/lodash.times": "^4.3.4",
+    "@types/react": "^16.7.6",
+    "typescript": "^2.8.3"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0"
   }
 }
