@@ -38,7 +38,7 @@ two possible scenarios:
 
 ## Install
 
-`yarn add react-progressive-list`
+`yarn add react-progressive-list-typescript`
 
 ## Example
 
