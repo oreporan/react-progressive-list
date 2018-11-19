@@ -2,6 +2,14 @@
     <img alt="react-progressive-list" src="https://raw.githubusercontent.com/mattcolman/react-progressive-list/master/react-progressive-list.jpg" height="200px" />
 </div>
 
+<br> 
+This is a fork to the original [react-progressive-list](https://www.npmjs.com/package/react-progressive-list) library but with some added features:
+
+1. written in typescript
+2. added a scrollBuffer so that you can start loading the next items before the end is reached
+
+
+</br>
 <br />
 
 Read the [blog post](https://medium.com/@mattcolman/an-alternative-to-react-virtualized-fba2299f10b1)
