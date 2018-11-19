@@ -11,7 +11,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var lodash_times_1 = require("lodash.times");
+var times = require('lodash.times');
 var ReactProgressiveList = /** @class */ (function (_super) {
     __extends(ReactProgressiveList, _super);
     function ReactProgressiveList(props) {
@@ -112,7 +112,7 @@ var ReactProgressiveList = /** @class */ (function (_super) {
         return (React.createElement("div", { ref: function (ref) {
                 _this.ref = ref;
             }, className: className },
-            lodash_times_1.default(numRenderRows, function (i) { return renderItem(i); }),
+            times(numRenderRows, function (i) { return renderItem(i); }),
             numRenderRows < rowCount && renderLoader && renderLoader()));
     };
     ReactProgressiveList.defaultProps = {
