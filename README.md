@@ -47,6 +47,7 @@ two possible scenarios:
         renderItem={this.renderRow}
         renderLoader={() => <Spinner />}
         rowCount={400}
+        scrollBuffer={20}
         useWindowScroll
       />
     );
@@ -66,3 +67,4 @@ two possible scenarios:
 | `renderLoader`      | () => React.Node              | () => null | function that returns a loader to render                                                               |
 | `rowCount`          | number                        | required   | the length of your list                                                                                |
 | `useWindowScroll`   | boolean                       | false      | When true will use a scroll listener on the window, otherwise will use a scroll listener on the parent |
+| `scrollBuffer`      | number                        | 0          | How many pixels before the end is reached, should we start loading more items                          |
