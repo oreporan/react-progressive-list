@@ -9,9 +9,19 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = require("react");
-var times = require('lodash.times');
+var React = __importStar(require("react"));
+var lodash_times_1 = __importDefault(require("lodash.times"));
 var ReactProgressiveList = /** @class */ (function (_super) {
     __extends(ReactProgressiveList, _super);
     function ReactProgressiveList(props) {
@@ -112,7 +122,7 @@ var ReactProgressiveList = /** @class */ (function (_super) {
         return (React.createElement("div", { ref: function (ref) {
                 _this.ref = ref;
             }, className: className },
-            times(numRenderRows, function (i) { return renderItem(i); }),
+            lodash_times_1.default(numRenderRows, function (i) { return renderItem(i); }),
             numRenderRows < rowCount && renderLoader && renderLoader()));
     };
     ReactProgressiveList.defaultProps = {
