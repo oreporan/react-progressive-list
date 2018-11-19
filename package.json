@@ -1,6 +1,6 @@
 {
   "name": "react-progressive-list-typescript",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "forked from react-progressive-list, added TS and more features like buffer",
   "main": "dist/ReactProgressiveList.js",
   "scripts": {
